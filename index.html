@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Ti ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+        180deg,
+        #fff5f7,
+        #ffe4ea,
+        #ffd6e0
+    );
+    font-family:Arial, sans-serif;
+}
+
+.container{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.gift-wrapper{
+    cursor:pointer;
+    animation:floatGift 3s ease-in-out infinite;
+    transition:all 1.8s ease;
+}
+
+.gift{
+    position:relative;
+    width:160px;
+    height:160px;
+}
+
+.box{
+    position:absolute;
+    bottom:0;
+    width:160px;
+    height:120px;
+    background:#ff6fa0;
+    border-radius:12px;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+
+.ribbon-v{
+    position:absolute;
+    left:70px;
+    width:20px;
+    height:120px;
+    background:white;
+}
+
+.ribbon-h{
+    position:absolute;
+    top:45px;
+    width:160px;
+    height:20px;
+    background:white;
+}
+
+.lid{
+    position:absolute;
+    top:15px;
+    width:160px;
+    height:35px;
+    background:#ff5d92;
+    border-radius:10px;
+}
+
+.face{
+    position:absolute;
+    top:65px;
+    width:100%;
+    text-align:center;
+    font-size:28px;
+}
+
+.open-text{
+    margin-top:18px;
+    font-size:24px;
+    color:#cc3c70;
+    font-weight:bold;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+@keyframes floatGift{
+    0%,100%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.heart{
+    position:absolute;
+    font-size:120px;
+    opacity:0;
+    transform:translateY(40px) scale(.4);
+    pointer-events:none;
+}
+
+.show-heart{
+    animation:heartRise 2.5s forwards;
+}
+
+@keyframes heartRise{
+
+    0%{
+        opacity:0;
+        transform:translateY(50px) scale(.4);
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(-220px) scale(1);
+    }
+}
+
+.gift-opened{
+    transform:translateY(900px) rotate(10deg);
+    opacity:0;
+}
+
+.tap-block{
+    position:fixed;
+    inset:0;
+}
+
+</style>
+</head>
+<body>
+
+<div class="tap-block" id="tapArea"></div>
+
+<div class="container">
+
+    <div class="heart" id="heart">
+        ❤️
+    </div>
+
+    <div class="gift-wrapper" id="gift">
+
+        <div class="gift">
+
+            <div class="lid"></div>
+
+            <div class="box">
+                <div class="ribbon-v"></div>
+                <div class="ribbon-h"></div>
+
+                <div class="face">
+                    (◕‿◕)
+                </div>
+            </div>
+
+        </div>
+
+        <div class="open-text">
+            Ábreme
+        </div>
+
+    </div>
+
+</div>
+
+<audio id="music">
+    <source src="music/tardes_a_tu_lado.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+let opened = false;
+
+function openGift(){
+
+    if(opened) return;
+    opened = true;
+
+    const gift = document.getElementById("gift");
+    const heart = document.getElementById("heart");
+    const music = document.getElementById("music");
+
+    music.play().catch(()=>{});
+
+    gift.classList.add("gift-opened");
+
+    setTimeout(()=>{
+        heart.classList.add("show-heart");
+    },200);
+}
+
+document.getElementById("tapArea")
+.addEventListener("click", openGift);
+
+document.getElementById("gift")
+.addEventListener("click", openGift);
+
+</script>
+
+</body>
+</html>
